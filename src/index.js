@@ -3,14 +3,45 @@ import ReactDOM from "react-dom";
 
 import WaldoDistance from './assets/waldo-social-distance.jpg';
 import './index.css';
-import { charCoords } from './retrieve-image-data'
+import { charCoords } from './retrieve-image-data';
+import { clickCoords } from './clicked-coords';
 
 
-const clickCoords = (e) => {
-    return {
-        clickedX: e.nativeEvent.offsetX,
-        clickedY: e.nativeEvent.offsetY
-    }
+const Popup = (props) => {
+    const {x, y, value, charsRemaining, selection} = props;
+    return (
+        <div className='selections'>
+            <div 
+                className='selectionMenu'
+                style={
+                    {
+                        top: y,
+                        left: x - 20,
+                        position: 'absolute'
+                    }
+                } 
+            >
+                <select value={value} onChange={selection}>
+                    <option value='select' key='select'></option>
+                    {charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}
+                </select>
+            </div>
+            <div
+                className='selectionBox'
+                style={
+                    {
+                        top: y + 20,
+                        left: x - 20,
+                        height: 120,
+                        width: 60,
+                        border: '1px dashed black',
+                        position: 'absolute'
+                    }
+                }
+            >
+            </div>
+        </div> 
+    )
 }
 
 
@@ -93,43 +124,15 @@ class Game extends React.Component {
                 <h2>Let's Find Waldo!</h2>
                 <div id='board'></div>
                 <div className='container'>
-                    <img
-                        src={WaldoDistance}
-                        onClick={this.clicked} 
-                    />
-                    {this.state.popupActive &&
-                        <div className='selections'>
-                            <div 
-                                className='selectionMenu'
-                                style={
-                                    {
-                                        top: y,
-                                        left: x - 20,
-                                        position: 'absolute'
-                                    }
-                                } 
-                            >
-                                <select value={this.state.value} onChange={this.selection}>
-                                    <option value='select' key='select'></option>
-                                    {this.state.charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}
-                                </select>
-                            </div>
-                            <div
-                                className='selectionBox'
-                                style={
-                                    {
-                                        top: y + 20,
-                                        left: x - 20,
-                                        height: 120,
-                                        width: 60,
-                                        border: '1px dashed black',
-                                        position: 'absolute'
-                                    }
-                                }
-                            >
-                            </div>
-                        </div> 
-
+                    <img src={WaldoDistance} onClick={this.clicked} />
+                    {this.state.popupActive 
+                        && <Popup 
+                                x={this.state.clickedX} 
+                                y={this.state.clickedY} 
+                                value={this.state.value}
+                                charsRemaining={this.state.charsRemaining}
+                                selection={this.selection}
+                            />
                     }
                 </div>
             </div>
