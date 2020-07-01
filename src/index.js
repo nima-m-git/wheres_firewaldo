@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import WaldoDistance from './assets/waldo-social-distance.jpg';
 import Futurama from './assets/futurama.png';
 
-import './index.css';
+import style from './index.css';
 import { firebaseData } from './retrieve-image-data';
 import { clickCoords } from './clicked-coords';
 
@@ -12,13 +12,14 @@ import { clickCoords } from './clicked-coords';
 const Popup = (props) => {
     const {x, y, value, charsRemaining, selection} = props;
     return (
-        <div className='selections'>
+        <div className={style.selections}>
             <div 
-                className='selectionMenu'
+                className={style.selectionMenu}
                 style={
                     {
-                        top: y,
-                        left: x - 20,
+                        top: y - 60,
+                        left: x - 30,
+                        width: 60,
                         position: 'absolute'
                     }
                 } 
@@ -29,11 +30,11 @@ const Popup = (props) => {
                 </select>
             </div>
             <div
-                className='selectionBox'
+                className={style.selectionBox}
                 style={
                     {
-                        top: y + 20,
-                        left: x - 20,
+                        top: y - 40,
+                        left: x - 30,
                         height: 120,
                         width: 60,
                         border: '1px dashed black',
@@ -131,8 +132,13 @@ class Game extends React.Component {
         return (
             <div>
                 <h2>Let's Find Waldo!</h2>
-                <div id='board'></div>
-                <div className='container'>
+                <div className={style.infoBoard}>
+                    <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
+                    <h4>Found: {this.state.charsFound.map(char => char + ' ')}</h4>
+                </div> 
+                <div 
+                    className={style.container}
+                >
                     <img src={Futurama} onClick={this.clicked} />
                     {this.state.popupActive 
                         && <Popup 
