@@ -18,12 +18,12 @@ class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            charsRemaining: ['waldo'],
+            charsRemaining: ['waldo', 'wenda'],
             charsFound: [],
             popupActive: false,
             clickedX: null,
             clickedY: null,
-            value: 'select'
+            value: 'chek'
         }
         this.clicked = this.clicked.bind(this)
         this.selection = this.selection.bind(this)
@@ -38,9 +38,10 @@ class Game extends React.Component {
         })
     }
 
-    selection(e) {
-        this.setState({
-            value: e.target.value
+    async selection(e) {
+        const value = e.target.value;
+        await this.setState({
+            value,
         })
         this.checkSelection()
     }
@@ -48,7 +49,7 @@ class Game extends React.Component {
     async checkSelection() {
         // GET RANGES FROM BACKEND SERVER
         console.log('pre await')
-        await charCoords('waldo-social-distance');
+        await charCoords('waldo-social-distance', this.state.value);
         console.log('happening?')
 
         // if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
@@ -91,7 +92,7 @@ class Game extends React.Component {
                     >
                         <select value={this.state.value} onChange={this.selection}>
                             <option value='select' key='select'></option>
-                            {this.state.charsRemaining.map((char) => <option value={char} key={char}>{this.state.value}</option>)}
+                            {this.state.charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}
                         </select>
                     </div>
                 }

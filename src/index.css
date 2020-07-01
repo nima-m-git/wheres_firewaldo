@@ -1,3 +1,11 @@
 #wheres {
     position: fixed;
 }
+
+.container {
+    position: relative;
+}
+
+.popup {
+    position: absolute;
+}
