@@ -3,14 +3,16 @@ import ReactDOM from "react-dom";
 
 import WaldoDistance from './assets/waldo-social-distance.jpg';
 import './index.css';
+import { charCoords } from './retrieve-image-data'
 
 
-const getCoords = (e) => {
+const clickCoords = (e) => {
     return {
         clickedX: e.nativeEvent.offsetX,
         clickedY: e.nativeEvent.offsetY
     }
 }
+
 
 class Game extends React.Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class Game extends React.Component {
     }
 
     clicked(e) {
-        const {clickedX, clickedY} = getCoords(e)
+        const {clickedX, clickedY} = clickCoords(e)
         this.setState({
             popupActive: true,
             clickedX,
@@ -43,19 +45,22 @@ class Game extends React.Component {
         this.checkSelection()
     }
 
-    checkSelection() {
+    async checkSelection() {
         // GET RANGES FROM BACKEND SERVER
+        console.log('pre await')
+        await charCoords('waldo-social-distance');
+        console.log('happening?')
 
-        if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
-            (y1 < this.state.clickedY && this.state.clickedY < y2)) {
-                // Add mark/box over correct selection
-                this.setState({
-                    charsRemaining: this.state.charsRemaining.filter((char) => char !== this.state.value),
-                    charsFound: [...this.state.charsFound, this.state.value],
-                })
-        } else {
-            // Popup incorrect message
-        }
+        // if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
+        //     (y1 < this.state.clickedY && this.state.clickedY < y2)) {
+        //         // Add mark/box over correct selection
+        //         this.setState({
+        //             charsRemaining: this.state.charsRemaining.filter((char) => char !== this.state.value),
+        //             charsFound: [...this.state.charsFound, this.state.value],
+        //         })
+        // } else {
+        //     // Popup incorrect message
+        // }
         this.setState({
             popupActive: false,
             clickedX: null,
@@ -72,9 +77,9 @@ class Game extends React.Component {
                 <img
                     id='wheres' 
                     src={WaldoDistance}
-                    onClick={clicked} 
+                    onClick={this.clicked} 
                 />
-                {this.state.popup.active && 
+                {this.state.popupActive && 
                     <div 
                         className='popup'
                         style={
@@ -85,8 +90,8 @@ class Game extends React.Component {
                         } 
                     >
                         <select value={this.state.value} onChange={this.selection}>
-                            <option value='select'></option>
-                            {this.state.charsRemaining.map((char) => <option value={char}>{value}</option>)}
+                            <option value='select' key='select'></option>
+                            {this.state.charsRemaining.map((char) => <option value={char} key={char}>{this.state.value}</option>)}
                         </select>
                     </div>
                 }
