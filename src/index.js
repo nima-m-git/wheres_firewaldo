@@ -49,7 +49,8 @@ class Game extends React.Component {
     async checkSelection() {
         // GET RANGES FROM BACKEND SERVER
         console.log('pre await')
-        await charCoords('waldo-social-distance', this.state.value);
+        const coords = await charCoords('waldo-social-distance', this.state.value)
+        console.log(coords)
         console.log('happening?')
 
         // if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
