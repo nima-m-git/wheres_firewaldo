@@ -2,8 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import WaldoDistance from './assets/waldo-social-distance.jpg';
+import Futurama from './assets/futurama.png';
+
 import './index.css';
-import { charCoords } from './retrieve-image-data';
+import { firebaseData } from './retrieve-image-data';
 import { clickCoords } from './clicked-coords';
 
 
@@ -44,12 +46,11 @@ const Popup = (props) => {
     )
 }
 
-
 class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            charsRemaining: ['waldo'],
+            charsRemaining: [],
             charsFound: [],
             popupActive: false,
             clickedX: null,
@@ -83,7 +84,8 @@ class Game extends React.Component {
 
     async checkSelection() {
         // GET RANGES FROM BACKEND SERVER
-        const {x1, x2, y1, y2} = await charCoords('waldo-social-distance', this.state.value);
+        const data = await firebaseData();
+        const {x1, x2, y1, y2} = data[0]['futurama'][this.state.value];
         
         if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
             (y1 < this.state.clickedY && this.state.clickedY < y2)) {
@@ -115,16 +117,23 @@ class Game extends React.Component {
         }
     }
 
+    async componentDidMount () {
+        const data = await firebaseData();
+        const chars = Object.keys(data[0]['futurama']);
+        this.setState({
+            charsRemaining: chars
+        })
+    }
+
     render() {
         const x = this.state.clickedX;
         const y = this.state.clickedY;
-
         return (
             <div>
                 <h2>Let's Find Waldo!</h2>
                 <div id='board'></div>
                 <div className='container'>
-                    <img src={WaldoDistance} onClick={this.clicked} />
+                    <img src={Futurama} onClick={this.clicked} />
                     {this.state.popupActive 
                         && <Popup 
                                 x={this.state.clickedX} 
