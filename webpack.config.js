@@ -1,9 +1,8 @@
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: ['babel-polyfill', './src/index.js'],
+    entry: ['babel-polyfill', './src/index.js', './src/index.css'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
@@ -22,8 +21,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'css-loader',
-                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(png|jpe?g|gif)$/,

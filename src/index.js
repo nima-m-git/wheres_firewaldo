@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import WaldoDistance from './assets/waldo-social-distance.jpg';
 import Futurama from './assets/futurama.png';
 
-import style from './index.css';
+import './index.module.css';
 import { firebaseData } from './retrieve-image-data';
 import { clickCoords } from './clicked-coords';
 
@@ -12,9 +12,9 @@ import { clickCoords } from './clicked-coords';
 const Popup = (props) => {
     const {x, y, value, charsRemaining, selection} = props;
     return (
-        <div className={style.selections}>
+        <div className='selections'>
             <div 
-                className={style.selectionMenu}
+                className='selectionMenu'
                 style={
                     {
                         top: y - 60,
@@ -30,7 +30,7 @@ const Popup = (props) => {
                 </select>
             </div>
             <div
-                className={style.selectionBox}
+                className='selectionBox'
                 style={
                     {
                         top: y - 40,
@@ -47,12 +47,14 @@ const Popup = (props) => {
     )
 }
 
+
 class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             charsRemaining: [],
             charsFound: [],
+            charsCoords: {},
             popupActive: false,
             clickedX: null,
             clickedY: null,
@@ -66,7 +68,7 @@ class Game extends React.Component {
     clicked(e) {
         const {clickedX, clickedY} = clickCoords(e)
         this.setState({
-            popupActive: true,
+            popupActive: (this.state.popupActive)? false : true,
             clickedX,
             clickedY,
         })
@@ -77,16 +79,13 @@ class Game extends React.Component {
         this.setState({
             value,
         }, () => {
-            this.checkSelection().catch(error => {
-                console.log({error,})
-            })
+            this.checkSelection()
         })
     }
 
-    async checkSelection() {
+    checkSelection() {
         // GET RANGES FROM BACKEND SERVER
-        const data = await firebaseData();
-        const {x1, x2, y1, y2} = data[0]['futurama'][this.state.value];
+        const {x1, x2, y1, y2} = this.state.charsCoords[this.state.value];
         
         if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
             (y1 < this.state.clickedY && this.state.clickedY < y2)) {
@@ -120,9 +119,10 @@ class Game extends React.Component {
 
     async componentDidMount () {
         const data = await firebaseData();
-        const chars = Object.keys(data[0]['futurama']);
+        const chars = data[0]['futurama'];
         this.setState({
-            charsRemaining: chars
+            charsRemaining: Object.keys(chars),
+            charsCoords: chars,
         })
     }
 
@@ -132,13 +132,11 @@ class Game extends React.Component {
         return (
             <div>
                 <h2>Let's Find Waldo!</h2>
-                <div className={style.infoBoard}>
+                <div className='infoBoard'>
                     <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
                     <h4>Found: {this.state.charsFound.map(char => char + ' ')}</h4>
                 </div> 
-                <div 
-                    className={style.container}
-                >
+                <div className='container'>
                     <img src={Futurama} onClick={this.clicked} />
                     {this.state.popupActive 
                         && <Popup 
@@ -149,6 +147,28 @@ class Game extends React.Component {
                                 selection={this.selection}
                             />
                     }
+                    <div>
+                        {this.state.charsFound.map(char => {
+                            const {x1, x2, y1, y2} = this.state.charsCoords[char];
+                            const width = x2 - x1;
+                            const height = y2 - y1
+                            return (
+                                <div 
+                                className='foundBox'
+                                key={char}
+                                style={
+                                    {
+                                        width: width,
+                                        height: height,
+                                        top: y1 - (height / 4),
+                                        left: x1 - (width / 4),
+                                        position: 'absolute',
+                                    }
+                                }>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         )
