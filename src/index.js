@@ -5,8 +5,111 @@ import WaldoDistance from './assets/waldo-social-distance.jpg';
 import Futurama from './assets/futurama.png';
 
 import './index.module.css';
-import { firebaseData } from './retrieve-image-data';
+import { firebaseData } from './firebase-data';
 import { clickCoords } from './clicked-coords';
+import { formatTime } from './format-time'
+
+
+class EnterScore extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            popupActive: this.props.active,
+            name: '',
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState({
+            name: e.target.value
+        });
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+        const scoreRef = firebase.firestore().collection('high-scores').doc('high-scores');
+
+        scoreRef.update({
+            [this.props.imgName]: firebase.firestore.FieldValue.arrayUnion({
+                name: this.state.name,
+                score: this.props.score,
+            })
+        });
+
+
+        this.setState({
+            popupActive: false,
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.popupActive &&
+                    <form onSubmit={this.handleSubmit}>
+                        <label>Enter Your Name:
+                            <input type='text' value={this.state.value} onChange={this.handleChange} />
+                        </label>
+                        <input type='submit' value='Submit' />
+                    </form>
+                }
+            </div>
+        )
+    }
+}
+
+
+class Highscores extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            scores: [],
+        };
+    }
+
+    async componentDidMount() {
+        const data = await firebaseData('high-scores');
+        const topFive = data[this.props.imgName].sort((a, b) => (a.score > b.score) ? 1 : -1).slice(0, 5);
+        this.setState({
+            scores: topFive,
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <div id='high-scores'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.scores.map(score => 
+                                <tr key={score.name + score.score}>
+                                    <td>{score.name}</td>
+                                    <td>{formatTime(score.score)}</td>    
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                {this.props.won 
+                    && (this.state.scores.some(score => this.props.score < score.score) || this.state.scores.length <= 5)
+                    && <EnterScore 
+                            score={this.props.score} 
+                            imgName={this.props.imgName}
+                            active={true}
+                        />
+                }
+            </div>
+        )
+    }
+}
 
 
 const Popup = (props) => {
@@ -51,6 +154,8 @@ const Popup = (props) => {
 class Game extends React.Component {
     constructor(props) {
         super(props)
+        this.imgName = 'waldo-social-distance';
+        this.imgSrc = WaldoDistance;
         this.state = {
             charsRemaining: [],
             charsFound: [],
@@ -59,7 +164,9 @@ class Game extends React.Component {
             clickedX: null,
             clickedY: null,
             value: 'chek',
-            won: false
+            won: false,
+            timeStart: null,
+            timeElapsed: null,
         }
         this.clicked = this.clicked.bind(this)
         this.selection = this.selection.bind(this)
@@ -89,7 +196,6 @@ class Game extends React.Component {
         
         if((x1 < this.state.clickedX && this.state.clickedX < x2) &&
             (y1 < this.state.clickedY && this.state.clickedY < y2)) {
-                // Add mark/box over correct selection
                 console.log('correct selection!')
                 this.setState({
                     charsRemaining: this.state.charsRemaining.filter((char) => char !== this.state.value),
@@ -107,41 +213,63 @@ class Game extends React.Component {
         })
     }
 
+    timer() {
+        this.setState({
+            timeElapsed: Date.now() - this.state.timeStart,
+        }) 
+    }
+
     componentDidUpdate() {
         if (this.state.charsRemaining.length === 0 && this.state.won === false) {
+            // Player Won
+            console.log('congrats, you won!')
+            clearInterval(this.timerID)
             this.setState({
                 won: true,
             })
-            // Player Won
-            console.log('congrats, you won!')
         }
     }
 
     async componentDidMount () {
-        const data = await firebaseData();
-        const chars = data[0]['futurama'];
+        const data = await firebaseData('image-data');
+        const chars = data[this.imgName];
         this.setState({
             charsRemaining: Object.keys(chars),
             charsCoords: chars,
+            timeStart: Date.now(),
         })
+        this.timerID = setInterval(() => this.timer(), 1000)
     }
 
     render() {
         const x = this.state.clickedX;
         const y = this.state.clickedY;
+
         return (
             <div>
                 <h2>Let's Find Waldo!</h2>
                 <div className='infoBoard'>
-                    <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
-                    <h4>Found: {this.state.charsFound.map(char => char + ' ')}</h4>
+                    <div className='chars'>
+                        <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
+                        <h4>Found: {this.state.charsFound.map(char => char + ' ')}</h4>
+                    </div>
+                    <div id='timer'>
+                        <h3>Time Elapsed: {formatTime(this.state.timeElapsed)}</h3>
+                    </div>
+                    <div id='highscores'>
+                        <Highscores 
+                            imgName={this.imgName}
+                            won={this.state.won}
+                            score={this.state.timeElapsed}
+                        /> 
+                    </div>
                 </div> 
                 <div className='container'>
-                    <img src={Futurama} onClick={this.clicked} />
+                    <img src={this.imgSrc} onClick={this.clicked} />
                     {this.state.popupActive 
                         && <Popup 
-                                x={this.state.clickedX} 
-                                y={this.state.clickedY} 
+                                x={x} 
+                                y={y} 
                                 value={this.state.value}
                                 charsRemaining={this.state.charsRemaining}
                                 selection={this.selection}
