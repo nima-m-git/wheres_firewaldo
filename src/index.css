@@ -11,7 +11,7 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-  .container {
+.container {
     position: relative;
     display: inline-block;
     margin: 0 auto;
@@ -35,5 +35,48 @@ img {
 }
 
 body {
-    background: hotpink;
+    background: rgba(1, 134, 187, 0.658);
+}
+
+#highscorePopup {
+    height: 50px;
+    width: 500px;
+    border: 10px dotted rgb(197, 8, 197);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.76);
+    color: yellow;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+button {
+    display: inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+button:hover{
+    background-color:#4095c6;
+}
+
+@media all and (max-width:30em){
+    button {
+        display: block;
+        margin: 0.2em auto;
+    }
 }

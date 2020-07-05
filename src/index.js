@@ -38,7 +38,6 @@ class EnterScore extends React.Component {
             })
         });
 
-
         this.setState({
             popupActive: false,
         })
@@ -48,11 +47,11 @@ class EnterScore extends React.Component {
         return (
             <div>
                 {this.state.popupActive &&
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} id='highscorePopup'>
                         <label>Enter Your Name:
                             <input type='text' value={this.state.value} onChange={this.handleChange} />
                         </label>
-                        <input type='submit' value='Submit' />
+                        <input type='submit' value='Submit' class='submit Btn'/>
                     </form>
                 }
             </div>
@@ -154,8 +153,8 @@ const Popup = (props) => {
 class Game extends React.Component {
     constructor(props) {
         super(props)
-        this.imgName = 'waldo-social-distance';
-        this.imgSrc = WaldoDistance;
+        this.imgName = this.props.choice.imgName;
+        this.imgSrc = this.props.choice.imgSource;
         this.state = {
             charsRemaining: [],
             charsFound: [],
@@ -247,7 +246,6 @@ class Game extends React.Component {
 
         return (
             <div>
-                <h2>Let's Find Waldo!</h2>
                 <div className='infoBoard'>
                     <div className='chars'>
                         <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
@@ -301,7 +299,53 @@ class Game extends React.Component {
             </div>
         )
     }
-
 }
 
-ReactDOM.render(<Game />, document.querySelector("#root"));
+class Choice extends React.Component {
+    constructor(props){
+        super(props)
+        this.choices = {
+            waldo: {
+                title: 'Socially Distanced Waldo',
+                imgName: 'waldo-social-distance',
+                imgSource: WaldoDistance,
+            },
+            futurama: {
+                title: 'Futurama',
+                imgName: 'futurama',
+                imgSource: Futurama,
+            }
+        }
+        this.state = {
+            choice: null,
+        };
+        this.makeChoice = this.makeChoice.bind(this);
+    }
+
+    makeChoice(e) {
+        this.setState({
+            choice: this.choices[e.target.value]
+        })
+    }
+
+
+    render() {
+
+        return (
+            <div>
+                <h2>Let's Find {this.state.choice && this.state.choice.title}!</h2>
+
+                {this.state.choice 
+                    && <Game choice={this.state.choice}/>
+                    ||  <div className='choice Btn'>
+                            <button type='submit' value='waldo' onClick={this.makeChoice}>Waldo</button>
+                            <button type='submit' value='futurama' onClick={this.makeChoice}>Futurama</button>
+                        </div>
+                }
+            </div>
+        )
+    }
+}
+
+
+ReactDOM.render(<Choice />, document.querySelector("#root"));
