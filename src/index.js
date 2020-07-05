@@ -226,6 +226,7 @@ class Game extends React.Component {
             this.setState({
                 won: true,
             })
+
         }
     }
 
@@ -254,6 +255,11 @@ class Game extends React.Component {
                     <div id='timer'>
                         <h3>Time Elapsed: {formatTime(this.state.timeElapsed)}</h3>
                     </div>
+                    {this.state.won &&
+                        <div id='winnerPopup' className='flash'>
+                            Congrats, you found 'em!
+                        </div>
+                    }
                     <div id='highscores'>
                         <Highscores 
                             imgName={this.imgName}
@@ -263,7 +269,7 @@ class Game extends React.Component {
                     </div>
                 </div> 
                 <div className='container'>
-                    <img src={this.imgSrc} onClick={this.clicked} />
+                    <img src={this.imgSrc} onClick={this.clicked} className={(this.state.won)? 'spin':null}/>
                     {this.state.popupActive 
                         && <Popup 
                                 x={x} 
@@ -332,9 +338,10 @@ class Choice extends React.Component {
     render() {
 
         return (
-            <div>
-                <h2>Let's Find {this.state.choice && this.state.choice.title}!</h2>
-
+            <div className='head'>
+                <div id='title'>
+                    <h2>Let's Find {this.state.choice && this.state.choice.title}!</h2>
+                </div>
                 {this.state.choice 
                     && <Game choice={this.state.choice}/>
                     ||  <div className='choice Btn'>
