@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import WaldoDistance from './assets/waldo-social-distance.jpg';
 import Futurama from './assets/futurama.png';
 
-import './index.module.css';
+import './index.css';
 import { firebaseData } from './firebase-data';
 import { clickCoords } from './clicked-coords';
 import { formatTime } from './format-time'
