@@ -1,6 +1,6 @@
-export const clickCoords = (e) => {
-    return {
-        clickedX: e.nativeEvent.offsetX,
-        clickedY: e.nativeEvent.offsetY
-    }
-}
+export const clickCoords = (e) => ({
+    imgX: e.nativeEvent.offsetX,
+    imgY: e.nativeEvent.offsetY,
+    screenX: e.pageX,
+    screenY: e.pageY,
+})

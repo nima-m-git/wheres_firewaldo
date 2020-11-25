@@ -36,10 +36,10 @@ class Choice extends React.Component {
         return (
             <div className='container'>
                 <div className='header'>
-                    <h2>Let's Find</h2>
+                    <h1>Let's Find</h1>
                     {this.state.choice &&
                         <div>
-                            <h3>{this.state.choice.title}</h3>
+                            <h2>{this.state.choice.title}</h2>
                             <div className='backButton'>
                                 <button onClick={() => window.location.reload()}>Back</button>
                             </div>

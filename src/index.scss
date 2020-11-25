@@ -5,13 +5,16 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
     min-height: 100%;
+    min-width: 100%;
+    overflow-x: scroll;
 }
 
 body {
     color: rgb(255, 187, 41);
-    background: linear-gradient(-30deg, rgba(209, 17, 226, 0.753), rgba(42, 42, 209, 0.8), rgba(226, 17, 191, 0.753)) no-repeat;
+    background: linear-gradient(-30deg, rgba(204, 51, 218, 0.853), rgba(61, 100, 231, 0.938), rgba(216, 63, 191, 0.853)) no-repeat;
+    background-size: cover;
     margin: 0;
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
@@ -34,15 +37,46 @@ code {
 
 img {
     display: block;
-    max-width: 150vw;
-    max-height: 150vw;
+    max-width: 2500px;
+    max-height: 2500px;
     user-select: none;
 }
 
-h2 {
-    font-size: 1.8em;
+h1 {
+    margin: 0.3em;
 }
 
+h2 {
+    font-size: 1.4em;
+}
+
+button {
+    padding: 0.5em 0.8em;
+    margin: 0 0.5em;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid rgb(167, 195, 255);
+    box-shadow: 1px 1px rgba(177, 173, 173, 0.356);
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 196, 0);
+    background-color:#3891c5d2;
+    transition: all 0.5s;
+}
+
+button:hover{
+    background-color:#3a6f8d;
+}
+
+// Gameboard
+.gameImage {
+    display: inline-block;
+    position: relative;
+
+    img {
+        margin: 0 auto;
+    }
+}
 
 /* Header */
 .header {
@@ -110,25 +144,6 @@ th {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-}
-
-button {
-    display: inline-block;
-    padding: 0.3em 1.2em;
-    margin: 0 0.3em 0.3em 0;
-    border-radius:2em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#FFFFFF;
-    background-color:#4eb5f1;
-    text-align:center;
-    transition: all 0.2s;
-}
-
-button:hover{
-    background-color:#4095c6;
 }
 
 @media all and (max-width:30em){
