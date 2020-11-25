@@ -8,6 +8,9 @@ import Futurama from './assets/futurama.png';
 class Choice extends React.Component {
     constructor(props){
         super(props)
+        this.state = {
+            choice: null,
+        };
         this.choices = {
             waldo: {
                 title: 'Socially Distanced Waldo',
@@ -20,23 +23,28 @@ class Choice extends React.Component {
                 imgSource: Futurama,
             }
         }
-        this.state = {
-            choice: null,
-        };
         this.makeChoice = this.makeChoice.bind(this);
     }
 
     makeChoice(e) {
         this.setState({
-            choice: this.choices[e.target.value]
+            choice: this.choices[e.target.value],
         })
     }
 
     render() {
         return (
-            <div className='head'>
-                <div id='title'>
-                    <h2>Let's Find {this.state.choice && this.state.choice.title}!</h2>
+            <div className='container'>
+                <div className='header'>
+                    <h2>Let's Find</h2>
+                    {this.state.choice &&
+                        <div>
+                            <h3>{this.state.choice.title}</h3>
+                            <div className='backButton'>
+                                <button onClick={() => window.location.reload()}>Back</button>
+                            </div>
+                        </div> 
+                    }
                 </div>
                 {this.state.choice 
                     && <Game choice={this.state.choice}/>
