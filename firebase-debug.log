@@ -1,0 +1,32 @@
+[debug] [2020-07-06T12:43:08.617Z] ----------------------------------------------------------------------
+[debug] [2020-07-06T12:43:08.618Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2020-07-06T12:43:08.619Z] CLI Version:   8.4.3
+[debug] [2020-07-06T12:43:08.619Z] Platform:      darwin
+[debug] [2020-07-06T12:43:08.619Z] Node Version:  v12.16.2
+[debug] [2020-07-06T12:43:08.620Z] Time:          Mon Jul 06 2020 08:43:08 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-07-06T12:43:08.621Z] ----------------------------------------------------------------------
+[debug] [2020-07-06T12:43:08.621Z] 
+[debug] [2020-07-06T12:43:08.629Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-06T12:43:08.629Z] > authorizing via signed-in user
+[debug] [2020-07-06T12:43:08.629Z] [iam] checking project wheres-waldo-2340a for permissions ["firebase.projects.get"]
+[debug] [2020-07-06T12:43:08.632Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-07-06T12:43:08.632Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-07-06T12:43:08.820Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 06 Jul 2020 12:43:08 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-06T12:43:08.824Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/wheres-waldo-2340a:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-06T12:43:09.039Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 06 Jul 2020 12:43:09 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=64","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-06T12:43:09.040Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/wheres-waldo-2340a  
+ 
+[debug] [2020-07-06T12:43:09.303Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 06 Jul 2020 12:43:09 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from '/Users/Nima/Desktop/Programming/Odin/projects/Wheres Waldo/wheres-waldo'...
+[info] 
+[debug] [2020-07-06T12:43:09.308Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/wheres-waldo-2340a/webApps/-/config  
+ 
+[debug] [2020-07-06T12:43:09.731Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 06 Jul 2020 12:43:09 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [06/Jul/2020:12:43:20 +0000] "GET / HTTP/1.1" 200 1258 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [06/Jul/2020:12:43:20 +0000] \"GET / HTTP/1.1\" 200 1258 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [06/Jul/2020:12:43:20 +0000] "GET /bundle.js HTTP/1.1" 200 239108 "http://localhost:5000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [06/Jul/2020:12:43:20 +0000] \"GET /bundle.js HTTP/1.1\" 200 239108 \"http://localhost:5000/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [06/Jul/2020:12:43:23 +0000] "GET /img/waldo-social-distance.jpg HTTP/1.1" 200 375893 "http://localhost:5000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [06/Jul/2020:12:43:23 +0000] \"GET /img/waldo-social-distance.jpg HTTP/1.1\" 200 375893 \"http://localhost:5000/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\""}}
