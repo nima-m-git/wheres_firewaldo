@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Popup } from './Popup';
 import { clickCoords } from './clicked-coords';
 
-export const GameBoard = (props) => {
+export const GameBoard = ({ checkSelection, won, imgSource, chars, setClickCoords, }) => {
     const [popupActive, setPopupActive] = useState(false);
     const[screenClick, setScreenClick] = useState({});
 
@@ -16,22 +16,16 @@ export const GameBoard = (props) => {
             screenY,
         });
 
-        props.setClickCoords({ imgX, imgY, });
+        setClickCoords({ imgX, imgY, });
     }
-
-    // console.log(props)
-
-    // imgSrc make context global var
-
-    // state.won  just for className change animation
 
     return (
         <div className='gameboard'>
-            <div className='gameImage'>
-                <img src={props.imgSource} onClick={clicked} className={(props.won)? 'spin' : null}/>
+            <div className='gameImage'>   
+                <img src={imgSource} onClick={clicked} className={(won)? 'spin' : null}/>
                 <div>
-                    {props.charsFound.map(char => {
-                        const {x1, x2, y1, y2} = props.charsCoords[char];
+                    {chars.charsFound.map(char => {
+                        const {x1, x2, y1, y2} = chars.charsCoords[char];
                         const width = x2 - x1;
                         const height = y2 - y1;
                         return (
@@ -56,8 +50,8 @@ export const GameBoard = (props) => {
                 && <Popup 
                         x={screenClick.screenX} 
                         y={screenClick.screenY} 
-                        charsRemaining={props.charsRemaining}
-                        checkSelection={props.checkSelection}
+                        charsRemaining={chars.charsRemaining}
+                        checkSelection={checkSelection}
                     />
             }
         </div>

@@ -87,24 +87,23 @@ const Game = (props) => {
     return (
         <div>
             <InfoBoard 
-                charsRemaining={chars.charsRemaining}
-                charsFound={chars.charsFound}
+                chars={chars}
                 timeElapsed={time.timeElapsed}
                 imgName={props.choice.imgName}
                 won={won}
-                score={time.timeElapsed}
             />
             <GameBoard 
                 checkSelection={checkSelection}
                 won={won}
                 imgSource={props.choice.imgSource} 
-
-                charsFound={chars.charsFound}
-                charsCoords={chars.charsCoords}
-                charsRemaining={chars.charsRemaining}
-
+                chars={chars}
                 setClickCoords={setClickCoords}
             />
+            {won &&
+                <div id='winnerPopup' className='flash'>
+                    Congrats, you found 'em!
+                </div>
+            }
         </div>
     )
 }
