@@ -1,117 +1,112 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { InfoBoard } from './InfoBoard';
 import { GameBoard } from './GameBoard';
 import { firebaseData } from './firebase-data';
 
 
-class Game extends React.Component {
-    constructor(props) {
-        super(props)
-        
-        this.imgName = this.props.choice.imgName;
-        this.imgSrc = this.props.choice.imgSource;
+const Game = (props) => {
+    const [chars, setChars] = useState({
+        charsRemaining: [],
+        charsFound: [],
+        charsCoords: {},
+    });
 
-        this.state = {
-            charsRemaining: [],
-            charsFound: [],
-            charsCoords: {},
-            won: false,
-            timeStart: null,
-            timeElapsed: null,
-            click: {},
-            selectedChar: null,
-        }
-        this.checkSelection = this.checkSelection.bind(this);
-        this.setClickCoords = this.setClickCoords.bind(this);
-    }
+    const [won, setWon] = useState(false);
 
-    setClickCoords({ imgX, imgY, }) {
-        this.setState({
-            click: {
-                imgX,
-                imgY,
-            }
-        })
-    }
+    const [time, setTime] = useState({
+        timeStart: 0,
+        timeElapsed: 0,
+    });
 
-    checkSelection(char) {
+    const [clickCoords, setClickCoords] = useState({});
+
+
+    function checkSelection(char) {
+        console.log('checking selection')
         // GET RANGES FROM BACKEND SERVER
-        console.log(char);
-        const {x1, x2, y1, y2} = this.state.charsCoords[char];
+        const {x1, x2, y1, y2} = chars.charsCoords[char];
 
         // Check if clicked coords within selected char range
-        if((x1 < this.state.click.imgX && this.state.click.imgX < x2) &&
-            (y1 < this.state.click.imgY && this.state.click.imgY < y2)) {
+        if((x1 < clickCoords.imgX && clickCoords.imgX < x2) &&
+            (y1 < clickCoords.imgY && clickCoords.imgY < y2)) {
 
                 console.log('correct selection!')
-                this.setState({
-                    charsRemaining: this.state.charsRemaining.filter((char) => char !== char),
-                    charsFound: [...this.state.charsFound, char],
+                setChars({
+                    ...chars,
+                    charsRemaining: chars.charsRemaining.filter((char) => char !== char),
+                    charsFound: [...chars.charsFound, char],
                 })
         } else {
             // Popup incorrect message
             console.log('incorrect, boo');
         }
-        this.setState({
-            click: {},
-        })
+        setClickCoords({});
     }
 
-
-    timer() {
-        this.setState({
-            timeElapsed: Date.now() - this.state.timeStart,
-        }) 
-    }
-
-    componentDidUpdate() {
-        if (this.state.charsRemaining.length === 0 && this.state.won === false) {
-            // Player Won
-            clearInterval(this.timerID)
-            this.setState({
-                won: true,
-            })
-
-        }
-    }
-
-    async componentDidMount () {
+    const fetchData = async () => {
         const data = await firebaseData('image-data');
-        const chars = data[this.imgName];
-        this.setState({
+        const chars = data[props.choice.imgName];
+
+        setChars({
+            charsFound: [],
             charsRemaining: Object.keys(chars),
             charsCoords: chars,
-            timeStart: Date.now(),
-        })
-        this.timerID = setInterval(() => this.timer(), 1000)
-    }
+        });
+    };
 
-    render() {
-        return (
-            <div>
-                <InfoBoard 
-                    charsRemaining={this.state.charsRemaining}
-                    charsFound={this.state.charsFound}
-                    timeElapsed={this.state.timeElapsed}
-                    imgName={this.imgName}
-                    won={this.state.won}
-                    score={this.timeElapsed}
-                />
-                <GameBoard 
-                    checkSelection={this.checkSelection}
-                    won={this.state.won}
-                    imgSrc={this.imgSrc}
+    
+    const mounted = useRef();
 
-                    charsFound={this.state.charsFound}
-                    charsCoords={this.state.charsCoords}
-                    charsRemaining={this.state.charsRemaining}
+    useEffect(() => {
+        if (!mounted.current) {
+        // component mounting, fetch data, start timer
+            fetchData();
+            setTime({
+                ...time,
+                timeStart: Date.now(),
+            });
+            mounted.current = true;
 
-                    setClickCoords={this.setClickCoords}
-                />
-            </div>
-        )
-    }
+        } else {
+        // component updating, tick timer & check win
+            const timerID = setInterval(() => setTime({
+                ...time,
+                timeElapsed: Date.now() - time.timeStart,
+            }) , 1000);
+
+    
+            if (chars.charsRemaining.length === 0 && won === false) {
+                // Player Won
+                clearInterval(timerID)
+                setWon(true);
+            }
+        }
+    }, [chars.charsRemaining])
+
+    return (
+        <div>
+            <InfoBoard 
+                charsRemaining={chars.charsRemaining}
+                charsFound={chars.charsFound}
+                timeElapsed={time.timeElapsed}
+                imgName={props.choice.imgName}
+                won={won}
+                score={time.timeElapsed}
+            />
+            <GameBoard 
+                checkSelection={checkSelection}
+                won={won}
+                imgSource={props.choice.imgSource} 
+
+                charsFound={chars.charsFound}
+                charsCoords={chars.charsCoords}
+                charsRemaining={chars.charsRemaining}
+
+                setClickCoords={setClickCoords}
+            />
+        </div>
+    )
 }
 
 export { Game }

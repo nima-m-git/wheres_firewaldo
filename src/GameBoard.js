@@ -19,6 +19,8 @@ export const GameBoard = (props) => {
         props.setClickCoords({ imgX, imgY, });
     }
 
+    // console.log(props)
+
     // imgSrc make context global var
 
     // state.won  just for className change animation
@@ -26,7 +28,7 @@ export const GameBoard = (props) => {
     return (
         <div className='gameboard'>
             <div className='gameImage'>
-                <img src={props.imgSrc} onClick={clicked} className={(props.won)? 'spin' : null}/>
+                <img src={props.imgSource} onClick={clicked} className={(props.won)? 'spin' : null}/>
                 <div>
                     {props.charsFound.map(char => {
                         const {x1, x2, y1, y2} = props.charsCoords[char];
