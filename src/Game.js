@@ -16,31 +16,16 @@ class Game extends React.Component {
             charsRemaining: [],
             charsFound: [],
             charsCoords: {},
-            // popupActive: false,
             won: false,
             timeStart: null,
             timeElapsed: null,
             click: {},
             selectedChar: null,
         }
-        // this.clicked = this.clicked.bind(this)
         this.checkSelection = this.checkSelection.bind(this);
         this.setClickCoords = this.setClickCoords.bind(this);
     }
 
-    // clicked(e) {
-    //     const { imgX, imgY, screenX, screenY, } = clickCoords(e);
-
-    //     this.setState({
-    //         popupActive: (this.state.popupActive)? false : true,
-    //         click: {
-    //             imgX,
-    //             imgY,
-    //             screenX,
-    //             screenY,
-    //         }
-    //     });
-    // }
     setClickCoords({ imgX, imgY, }) {
         this.setState({
             click: {
@@ -69,7 +54,6 @@ class Game extends React.Component {
             console.log('incorrect, boo');
         }
         this.setState({
-            // popupActive: false,
             click: {},
         })
     }
@@ -111,13 +95,12 @@ class Game extends React.Component {
                     charsFound={this.state.charsFound}
                     timeElapsed={this.state.timeElapsed}
                     imgName={this.imgName}
-                    won={this.won}
+                    won={this.state.won}
                     score={this.timeElapsed}
                 />
                 <GameBoard 
                     checkSelection={this.checkSelection}
                     won={this.state.won}
-                    // popupActive={this.state.popupActive}
                     imgSrc={this.imgSrc}
 
                     charsFound={this.state.charsFound}
