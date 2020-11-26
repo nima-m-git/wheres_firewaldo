@@ -21,22 +21,18 @@ const Game = (props) => {
 
     const [clickCoords, setClickCoords] = useState({});
 
-
     function checkSelection(char) {
-        console.log('checking selection')
         // GET RANGES FROM BACKEND SERVER
         const {x1, x2, y1, y2} = chars.charsCoords[char];
 
         // Check if clicked coords within selected char range
-        if((x1 < clickCoords.imgX && clickCoords.imgX < x2) &&
-            (y1 < clickCoords.imgY && clickCoords.imgY < y2)) {
-
-                console.log('correct selection!')
+        if((x1 < clickCoords.imgX && clickCoords.imgX < x2) 
+            && (y1 < clickCoords.imgY && clickCoords.imgY < y2)) {
                 setChars({
                     ...chars,
                     charsRemaining: chars.charsRemaining.filter((char) => char !== char),
                     charsFound: [...chars.charsFound, char],
-                })
+                });
         } else {
             // Popup incorrect message
             console.log('incorrect, boo');
@@ -55,7 +51,6 @@ const Game = (props) => {
         });
     };
 
-    
     const mounted = useRef();
 
     useEffect(() => {
@@ -74,7 +69,6 @@ const Game = (props) => {
                 ...time,
                 timeElapsed: Date.now() - time.timeStart,
             }) , 1000);
-
     
             if (chars.charsRemaining.length === 0 && won === false) {
                 // Player Won

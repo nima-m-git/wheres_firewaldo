@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { EnterScore } from './EnterScore';
-
 import { firebaseData } from '../firebase-data';
 import { formatTime } from '../format-time';
 
