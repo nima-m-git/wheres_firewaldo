@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { EnterScore } from './EnterScore';
 
-import { firebaseData } from './firebase-data';
-import { formatTime } from './format-time';
+import { firebaseData } from '../firebase-data';
+import { formatTime } from '../format-time';
 
 
 const Highscores = ({ imgName, won, score, }) => {
@@ -44,7 +44,6 @@ const Highscores = ({ imgName, won, score, }) => {
                 && <EnterScore 
                         score={score} 
                         imgName={imgName}
-                        active={true}
                     />
             }
         </div>

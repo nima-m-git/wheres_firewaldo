@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Popup } from './Popup';
-import { clickCoords } from './clicked-coords';
+import { clickCoords } from '../clicked-coords';
 
 export const GameBoard = ({ checkSelection, won, imgSource, chars, setClickCoords, }) => {
     const [popupActive, setPopupActive] = useState(false);
@@ -15,7 +15,6 @@ export const GameBoard = ({ checkSelection, won, imgSource, chars, setClickCoord
             screenX,
             screenY,
         });
-
         setClickCoords({ imgX, imgY, });
     }
 

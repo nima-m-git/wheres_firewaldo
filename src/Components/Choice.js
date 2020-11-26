@@ -1,5 +1,5 @@
 import React from "react";
-import choices from './choices';
+import choices from '../choices';
 
 function Choice({ setChoice }) {
     return (

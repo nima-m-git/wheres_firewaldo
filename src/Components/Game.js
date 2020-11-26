@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { InfoBoard } from './InfoBoard';
 import { GameBoard } from './GameBoard';
-import { firebaseData } from './firebase-data';
+import { firebaseData } from '../firebase-data';
 
 
 const Game = (props) => {

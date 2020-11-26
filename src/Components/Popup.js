@@ -1,10 +1,7 @@
 import React from "react";
 
 
-const Popup = (props) => {
-    const { x, y, charsRemaining, checkSelection, } = props;
-    // value removed
-
+const Popup = ({ x, y, charsRemaining, checkSelection, }) => {
     return (
         <div className='selections'>
             <div 

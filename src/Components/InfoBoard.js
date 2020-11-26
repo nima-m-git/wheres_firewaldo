@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Highscores } from './Highscores';
-import { formatTime } from './format-time';
+import { formatTime } from '../format-time';
 
 export const InfoBoard = ({ chars, timeElapsed, imgName, won, }) => {
     return (
