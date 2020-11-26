@@ -2,7 +2,9 @@ import React from "react";
 
 
 const Popup = (props) => {
-    const {x, y, value, charsRemaining, selection} = props;
+    const { x, y, charsRemaining, checkSelection, } = props;
+    // value removed
+
     return (
         <div className='selections'>
             <div 
@@ -16,7 +18,9 @@ const Popup = (props) => {
                     }
                 } 
             >
-                <select value={value} onChange={selection}>
+                <select 
+                    onChange={(e) => checkSelection(e.target.value)}
+                >
                     <option value='select' key='select'></option>
                     {charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}
                 </select>

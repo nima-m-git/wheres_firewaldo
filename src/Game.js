@@ -1,79 +1,79 @@
 import React from "react";
 
-import { Popup } from './Popup';
-import { Highscores } from './Highscores';
-
-import { formatTime } from './format-time';
+import { InfoBoard } from './InfoBoard';
+import { GameBoard } from './GameBoard';
 import { firebaseData } from './firebase-data';
-import { clickCoords } from './clicked-coords';
+
 
 class Game extends React.Component {
     constructor(props) {
         super(props)
+        
         this.imgName = this.props.choice.imgName;
         this.imgSrc = this.props.choice.imgSource;
+
         this.state = {
             charsRemaining: [],
             charsFound: [],
             charsCoords: {},
-            popupActive: false,
-            value: 'chek',
+            // popupActive: false,
             won: false,
             timeStart: null,
             timeElapsed: null,
             click: {},
+            selectedChar: null,
         }
-        this.clicked = this.clicked.bind(this)
-        this.selection = this.selection.bind(this)
+        // this.clicked = this.clicked.bind(this)
+        this.checkSelection = this.checkSelection.bind(this);
+        this.setClickCoords = this.setClickCoords.bind(this);
     }
 
-    clicked(e) {
-        const { imgX, imgY, screenX, screenY, } = clickCoords(e);
+    // clicked(e) {
+    //     const { imgX, imgY, screenX, screenY, } = clickCoords(e);
 
-        console.log({ imgX, imgY, });
-
+    //     this.setState({
+    //         popupActive: (this.state.popupActive)? false : true,
+    //         click: {
+    //             imgX,
+    //             imgY,
+    //             screenX,
+    //             screenY,
+    //         }
+    //     });
+    // }
+    setClickCoords({ imgX, imgY, }) {
         this.setState({
-            popupActive: (this.state.popupActive)? false : true,
             click: {
                 imgX,
                 imgY,
-                screenX,
-                screenY,
             }
-        });
-    }
-
-    selection(e) {
-        const value = e.target.value;
-        this.setState({
-            value,
-        }, () => {
-            this.checkSelection()
         })
     }
 
-    checkSelection() {
+    checkSelection(char) {
         // GET RANGES FROM BACKEND SERVER
-        const {x1, x2, y1, y2} = this.state.charsCoords[this.state.value];
-        
+        console.log(char);
+        const {x1, x2, y1, y2} = this.state.charsCoords[char];
+
+        // Check if clicked coords within selected char range
         if((x1 < this.state.click.imgX && this.state.click.imgX < x2) &&
             (y1 < this.state.click.imgY && this.state.click.imgY < y2)) {
 
                 console.log('correct selection!')
                 this.setState({
-                    charsRemaining: this.state.charsRemaining.filter((char) => char !== this.state.value),
-                    charsFound: [...this.state.charsFound, this.state.value],
+                    charsRemaining: this.state.charsRemaining.filter((char) => char !== char),
+                    charsFound: [...this.state.charsFound, char],
                 })
         } else {
             // Popup incorrect message
-            console.log('incorrect, boo')
+            console.log('incorrect, boo');
         }
         this.setState({
-            popupActive: false,
+            // popupActive: false,
             click: {},
-            value: 'select'
         })
     }
+
 
     timer() {
         this.setState({
@@ -106,63 +106,26 @@ class Game extends React.Component {
     render() {
         return (
             <div>
-                <div className='infoBoard'>
-                    <div className='chars'>
-                        <h4>Remaining: {this.state.charsRemaining.map(char => char + ' ')}</h4>
-                        <h4>Found: {this.state.charsFound.map(char => char + ' ')}</h4>
-                    </div>
-                    <div id='timer'>
-                        <h3>Time Elapsed: {formatTime(this.state.timeElapsed)}</h3>
-                    </div>
-                    {this.state.won &&
-                        <div id='winnerPopup' className='flash'>
-                            Congrats, you found 'em!
-                        </div>
-                    }
-                    <div id='highscores'>
-                        <Highscores 
-                            imgName={this.imgName}
-                            won={this.state.won}
-                            score={this.state.timeElapsed}
-                        /> 
-                    </div>
-                </div> 
-                <div className='gameboard'>
-                    <div className='gameImage'>
-                        <img src={this.imgSrc} onClick={this.clicked} className={(this.state.won)? 'spin':null}/>
-                        <div>
-                            {this.state.charsFound.map(char => {
-                                const {x1, x2, y1, y2} = this.state.charsCoords[char];
-                                const width = x2 - x1;
-                                const height = y2 - y1;
-                                return (
-                                    <div 
-                                    className='foundBox'
-                                    key={char}
-                                    style={
-                                        {
-                                            width: width,
-                                            height: height,
-                                            top: y1,
-                                            left: x1,
-                                            position: 'absolute',
-                                        }
-                                    }>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                    {this.state.popupActive 
-                        && <Popup 
-                                x={this.state.click.screenX} 
-                                y={this.state.click.screenY} 
-                                value={this.state.value}
-                                charsRemaining={this.state.charsRemaining}
-                                selection={this.selection}
-                            />
-                    }
-                </div>
+                <InfoBoard 
+                    charsRemaining={this.state.charsRemaining}
+                    charsFound={this.state.charsFound}
+                    timeElapsed={this.state.timeElapsed}
+                    imgName={this.imgName}
+                    won={this.won}
+                    score={this.timeElapsed}
+                />
+                <GameBoard 
+                    checkSelection={this.checkSelection}
+                    won={this.state.won}
+                    // popupActive={this.state.popupActive}
+                    imgSrc={this.imgSrc}
+
+                    charsFound={this.state.charsFound}
+                    charsCoords={this.state.charsCoords}
+                    charsRemaining={this.state.charsRemaining}
+
+                    setClickCoords={this.setClickCoords}
+                />
             </div>
         )
     }
