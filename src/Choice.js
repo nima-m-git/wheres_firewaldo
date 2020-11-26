@@ -22,8 +22,9 @@ function Choice() {
             {choice 
                 && <Game choice={choice}/>
                 ||  <div className='choice Btn'>
-                        <button type='submit' value='waldo' onClick={(e) => setChoice(choices[e.target.value])}>Waldo</button>
-                        <button type='submit' value='futurama' onClick={(e) => setChoice(choices[e.target.value])}>Futurama</button>
+                        {choices.map((choice) => 
+                            <button type='submit' onClick={() => setChoice(choice)}>{choice.title}</button>
+                        )}
                     </div>
             }
         </div>
