@@ -12,11 +12,22 @@ const Game = (props) => {
         charsCoords: {},
     });
     const [won, setWon] = useState(false);
-    const [time, setTime] = useState({
-        timeStart: 0,
-        timeElapsed: 0,
-    });
+    const [timeStart, setTimeStart] = useState(0);
+    const [timeElapsed, setTimeElapsed] = useState(0);
     const [clickCoords, setClickCoords] = useState({});
+
+
+    const fetchData = async () => {
+        const data = await firebaseData('image-data');
+        const chars = data[props.choice.imgName];
+
+        setChars({
+            charsFound: [],
+            charsRemaining: Object.keys(chars),
+            charsCoords: chars,
+        });
+    };
+
 
     function checkSelection(char) {
         // GET RANGES FROM BACKEND SERVER
@@ -37,32 +48,14 @@ const Game = (props) => {
         setClickCoords({});
     }
 
-
-    const fetchData = async () => {
-        const data = await firebaseData('image-data');
-        const chars = data[props.choice.imgName];
-
-        setChars({
-            charsFound: [],
-            charsRemaining: Object.keys(chars),
-            charsCoords: chars,
-        });
-    };
-
-    const timer = () => {
-        setTime({
-            timeStart: time.timeStart,
-            timeElapsed: Date.now() - time.timeStart,
-        })
-    }
-
-
+    
     const mounted = useRef();
+    
     useEffect(() => {
         let timerID;
         if (mounted.current) {
         // component updating, tick timer & check win
-            timerID = setInterval(() => timer(), 1000);
+            timerID = setInterval(() => setTimeElapsed(Date.now() - timeStart), 1000);
     
             if (chars.charsRemaining.length === 0 && won === false) {
                 // Player Won
@@ -75,20 +68,18 @@ const Game = (props) => {
 
 
     useEffect(() => {
-        // component mounting, fetch data, start timer
+        // component mounting, fetch data, start time
         fetchData();
-        setTime({
-            ...time,
-            timeStart: Date.now(),
-        });
+        setTimeStart(Date.now());
         mounted.current = true;
     }, [])
+
 
     return (
         <div>
             <InfoBoard 
                 chars={chars}
-                timeElapsed={time.timeElapsed}
+                timeElapsed={timeElapsed}
                 imgName={props.choice.imgName}
                 won={won}
             />
