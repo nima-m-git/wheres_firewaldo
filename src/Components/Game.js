@@ -11,14 +11,11 @@ const Game = (props) => {
         charsFound: [],
         charsCoords: {},
     });
-
     const [won, setWon] = useState(false);
-
     const [time, setTime] = useState({
         timeStart: 0,
         timeElapsed: 0,
     });
-
     const [clickCoords, setClickCoords] = useState({});
 
     function checkSelection(char) {
@@ -40,6 +37,7 @@ const Game = (props) => {
         setClickCoords({});
     }
 
+
     const fetchData = async () => {
         const data = await firebaseData('image-data');
         const chars = data[props.choice.imgName];
@@ -51,32 +49,40 @@ const Game = (props) => {
         });
     };
 
+    const timer = () => {
+        setTime({
+            timeStart: time.timeStart,
+            timeElapsed: Date.now() - time.timeStart,
+        })
+    }
+
+
     const mounted = useRef();
-
     useEffect(() => {
-        if (!mounted.current) {
-        // component mounting, fetch data, start timer
-            fetchData();
-            setTime({
-                ...time,
-                timeStart: Date.now(),
-            });
-            mounted.current = true;
-
-        } else {
+        let timerID;
+        if (mounted.current) {
         // component updating, tick timer & check win
-            const timerID = setInterval(() => setTime({
-                ...time,
-                timeElapsed: Date.now() - time.timeStart,
-            }) , 1000);
+            timerID = setInterval(() => timer(), 1000);
     
             if (chars.charsRemaining.length === 0 && won === false) {
                 // Player Won
-                clearInterval(timerID)
                 setWon(true);
+                clearInterval(timerID);
             }
         }
+        return () => clearInterval(timerID);
     }, [chars.charsRemaining])
+
+
+    useEffect(() => {
+        // component mounting, fetch data, start timer
+        fetchData();
+        setTime({
+            ...time,
+            timeStart: Date.now(),
+        });
+        mounted.current = true;
+    }, [])
 
     return (
         <div>

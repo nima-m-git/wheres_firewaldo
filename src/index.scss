@@ -7,6 +7,7 @@ $borange: rgb(255, 187, 41);
     padding: 0;
     box-sizing: border-box;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
 }
 
 html, body {
@@ -24,10 +25,6 @@ body {
     font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-  
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .container {
@@ -54,15 +51,18 @@ h2 {
     font-size: 1.4em;
 }
 
+button, input {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
 button {
     padding: 0.5em 0.8em;
     margin: 0 0.5em;
     font-size: 1em;
-    font-weight: bold;
     border-radius: 10px;
     border: 1px solid rgb(167, 195, 255);
     box-shadow: 1px 1px rgba(177, 173, 173, 0.356);
-    font-family: 'Courier New', Courier, monospace;
     color: $borange;
     background-color:#3891c5d2;
     transition: all 0.3s;
@@ -83,6 +83,12 @@ button:hover{
     position: absolute;
     left: 0;
     top: 0;
+}
+
+//      Choices     \\
+.choiceBtns {
+    display: flex;
+    justify-content: center;
 }
 
 //      Gameboard      \\
@@ -118,58 +124,79 @@ button:hover{
 
 .chars {
     font-size: 1em;
-    font-weight: 600;
-
-    strong {
-        font-size: 1.2em;
-    }
 }
 
 
 table, td {
     border: 2px solid $borange;
-    font-weight: bold;
     background: rgba(0, 0, 0, 0.1);
 }
 
 td {
-    padding: 0.2em;
+    padding: 0.3em 0.5em;
+    font-size: 0.7em;
+    font-weight: 600;
 }
 
 th {
-    font-size: 1.1em;
     padding: 0.2em;
     text-decoration: underline;
 }
 
 #highscorePopup {
-    height: 30px;
-    width: 480px;
-    border: 10px dotted rgb(197, 8, 197);
-    border-radius: 10px;
-    background-color: rgba(32, 228, 163, 0.911);
-    color: rgb(253, 129, 56);
-    font-size: 26px;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+
+    border-radius: 5px;
+    background-color: rgba(92, 32, 160, 0.7);
+    border: 2px solid $borange;
+    padding: 0.6em 0.6em;
+
+    font-size: 1.2em;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+
+    input[type='text'] {
+        background: rgba(255, 255, 255, 0);
+        border: 2px solid $borange;
+        border-radius: 5px;
+        height: 30px;
+        color: $borange;
+        padding-left: 1em;
+        font-size: 18px;
+        width: 180px;
+        margin: 0.5em;
+    }
+
+    input[type='submit'] {
+        background: rgba(235, 214, 214, 0.192);
+        border: 2px solid $borange;
+        color: $borange;
+        border-radius: 5px;
+        width: 6em;
+        height: 2.5em;
+        font-size: 14px;
+    }
+
 }
 
 #winnerPopup {
-    height: 30px;
-    width: 380px;
+    height: 2em;
+    width: 16em;
     border: 10px dotted rgb(197, 8, 197);
-    color: rgb(255, 187, 41);
-    font-size: 26px;
-    font-weight: bold;
+
+    font-size: 1.3em;
     position: fixed;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     z-index: 1;
 }
 
