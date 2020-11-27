@@ -7,8 +7,8 @@ export const InfoBoard = ({ chars, timeElapsed, imgName, won, }) => {
     return (
         <div className='infoBoard'>
             <div className='chars'>
-                <h4>Remaining: {chars.charsRemaining.map(char => char + ' ')}</h4>
-                <h4>Found: {chars.charsFound.map(char => char + ' ')}</h4>
+                <p><strong>Remaining: </strong>{chars.charsRemaining.map(char => char + ', ')}</p>
+                <p><strong>Found: </strong>{chars.charsFound.map(char => char + ', ')}</p>
             </div>
             <div id='timer'>
                 <h3>Time Elapsed: {formatTime(timeElapsed)}</h3>

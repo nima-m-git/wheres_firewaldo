@@ -37,7 +37,6 @@ code {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    // position: relative;
 }
 
 img {
@@ -58,7 +57,7 @@ h2 {
 button {
     padding: 0.5em 0.8em;
     margin: 0 0.5em;
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: bold;
     border-radius: 10px;
     border: 1px solid rgb(167, 195, 255);
@@ -66,22 +65,12 @@ button {
     font-family: 'Courier New', Courier, monospace;
     color: $borange;
     background-color:#3891c5d2;
-    transition: all 0.5s;
+    transition: all 0.3s;
 }
 
 button:hover{
     background-color:#3a6f8d;
-}
-
-// Gameboard
-.gameImage {
-    display: inline-block;
-    position: relative;
-    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.322);
-
-    img {
-        margin: 0 auto;
-    }
+    cursor: pointer;
 }
 
 /* Header */
@@ -96,21 +85,46 @@ button:hover{
     top: 0;
 }
 
+//      Gameboard      \\
+.gameImage {
+    display: inline-block;
+    position: relative;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.322);
+    margin: 0 1em;
 
-/* InfoBoard */
+    img {
+        margin: 0 auto;
+    }
+}
+
+.foundBox {
+    border: 5px solid red;
+}
+
+//      InfoBoard      \\
 .infoBoard {
     display: flex;
     justify-content: space-around;
     padding: 10px;
+
+    > * {
+        padding: 0.4em;
+    }
 }
 
 .infoBoard, select {
     text-transform: capitalize;
 }
 
-.foundBox {
-    border: 5px solid red;
+.chars {
+    font-size: 1em;
+    font-weight: 600;
+
+    strong {
+        font-size: 1.2em;
+    }
 }
+
 
 table, td {
     border: 2px solid $borange;
@@ -180,11 +194,20 @@ th {
 
 
 //      Media Queries      \\
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
+    .chars {
+        text-align: left;
+
+        p {
+            display: flex;
+        }
+    }
+}
+
+@media (min-width: 1000px) {
     #high-scores {
-        position: absolute;
-        top: 0;
-        right: 0;
+        position: relative;
+        top: -100px;
     }
 }
 
