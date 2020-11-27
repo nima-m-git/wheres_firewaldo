@@ -1,6 +1,6 @@
 import React from "react";
 
-const Popup = ({ x, y, charsRemaining, checkSelection, }) => {
+const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive, }) => {
     return (
         <div className='selections'>
             <div 
@@ -13,7 +13,10 @@ const Popup = ({ x, y, charsRemaining, checkSelection, }) => {
                 }} 
             >
                 <select 
-                    onChange={(e) => checkSelection(e.target.value)}
+                    onChange={(e) => {
+                        checkSelection(e.target.value);
+                        setPopupActive(false);
+                    }}
                 >
                     <option value='select' key='select'></option>
                     {charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}

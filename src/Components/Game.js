@@ -30,7 +30,7 @@ const Game = (props) => {
             && (y1 < clickCoords.imgY && clickCoords.imgY < y2)) {
                 setChars({
                     ...chars,
-                    charsRemaining: chars.charsRemaining.filter((char) => char !== char),
+                    charsRemaining: chars.charsRemaining.filter((remainingChar) => remainingChar !== char),
                     charsFound: [...chars.charsFound, char],
                 });
         } else {

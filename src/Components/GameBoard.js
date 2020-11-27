@@ -10,6 +10,9 @@ export const GameBoard = ({ checkSelection, won, imgSource, chars, setClickCoord
     function clicked(e) {
         const { imgX, imgY, screenX, screenY, } = clickCoords(e);
         setPopupActive(!(popupActive));
+
+        console.log(screenX, screenY);
+
         setScreenClick({
             screenX,
             screenY,
@@ -51,6 +54,7 @@ export const GameBoard = ({ checkSelection, won, imgSource, chars, setClickCoord
                         y={screenClick.screenY} 
                         charsRemaining={chars.charsRemaining}
                         checkSelection={checkSelection}
+                        setPopupActive={setPopupActive}
                     />
             }
         </div>

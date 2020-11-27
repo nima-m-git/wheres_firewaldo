@@ -1,8 +1,12 @@
+// Variables \\
+$borange: rgb(255, 187, 41);
+
 /* Body */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 html, body {
@@ -12,7 +16,7 @@ html, body {
 }
 
 body {
-    color: rgb(255, 187, 41);
+    color: $borange;
     background: linear-gradient(-30deg, rgba(204, 51, 218, 0.853), rgba(61, 100, 231, 0.938), rgba(216, 63, 191, 0.853)) no-repeat;
     background-size: cover;
     margin: 0;
@@ -33,6 +37,7 @@ code {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    // position: relative;
 }
 
 img {
@@ -59,7 +64,7 @@ button {
     border: 1px solid rgb(167, 195, 255);
     box-shadow: 1px 1px rgba(177, 173, 173, 0.356);
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(255, 196, 0);
+    color: $borange;
     background-color:#3891c5d2;
     transition: all 0.5s;
 }
@@ -72,6 +77,7 @@ button:hover{
 .gameImage {
     display: inline-block;
     position: relative;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.322);
 
     img {
         margin: 0 auto;
@@ -106,13 +112,20 @@ button:hover{
     border: 5px solid red;
 }
 
-table, tr, td {
-    border: 3px solid black;
+table, td {
+    border: 2px solid $borange;
     font-weight: bold;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+td {
+    padding: 0.2em;
 }
 
 th {
-    font-size: 20px;
+    font-size: 1.1em;
+    padding: 0.2em;
+    text-decoration: underline;
 }
 
 #highscorePopup {
@@ -163,6 +176,16 @@ th {
 .flash {
     animation: flash 0.5s linear 0.3s infinite;
     background-color: transparent;
+}
+
+
+//      Media Queries      \\
+@media (min-width: 1200px) {
+    #high-scores {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
 
 
