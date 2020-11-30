@@ -234,13 +234,6 @@ th {
     z-index: 1;
 }
 
-@media all and (max-width:30em){
-    button {
-        display: block;
-        margin: 0.2em auto;
-    }
-}
-
 .spin {
     animation: spin 5s;
     animation-delay: 0.5s;
