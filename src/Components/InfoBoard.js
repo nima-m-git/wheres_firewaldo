@@ -15,13 +15,15 @@ export const InfoBoard = ({ chars, timeElapsed, imgName, won, }) => {
             <div id='timer'>
                 <h3>Time Elapsed: {formatTime(timeElapsed)}</h3>
             </div>
-            <div id='highscores'>
-                <Highscores 
-                    imgName={imgName}
-                    won={won}
-                    score={timeElapsed}
-                /> 
-            </div>
+            {won &&
+                <div id='highscores'>
+                    <Highscores 
+                        imgName={imgName}
+                        won={won}
+                        score={timeElapsed}
+                    /> 
+                </div>
+            }
         </div> 
     )
 }

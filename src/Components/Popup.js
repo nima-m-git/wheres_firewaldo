@@ -18,18 +18,17 @@ const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive, }) => {
                         setPopupActive(false);
                     }}
                 >
-                    <option value='select' key='select'></option>
+                    <option value='select' key='select' style={{ 'font-style': 'italic', 'font-weight': '500'  }}>select</option>
                     {charsRemaining.map((char) => <option value={char} key={char}>{char}</option>)}
                 </select>
             </div>
             <div
                 className='selectionBox'
                 style={{
-                    top: y - 40,
+                    top: y - 35,
                     left: x - 30,
                     height: 120,
                     width: 60,
-                    border: '1px dashed black',
                     position: 'absolute'
                 }}
             >

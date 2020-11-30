@@ -89,6 +89,12 @@ button:hover{
 .choiceBtns {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+
+    button {
+        margin: 0.3em;
+    }
 }
 
 //      Gameboard      \\
@@ -97,6 +103,7 @@ button:hover{
     position: relative;
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.322);
     margin: 0 1em;
+    cursor: pointer;
 
     img {
         margin: 0 auto;
@@ -111,12 +118,21 @@ button:hover{
     font-weight: 400;
 
     select {
-        background: rgba(218, 201, 166, 0.5);
+        background: rgba(224, 224, 224, 0.89);
+        text-shadow: 1px 1px 1px black;
+        color: black;
         border: none;
-        width: 100%;
+        width: 120%;
         border-radius: 5px;
-        appearance: none;
+        padding: 0.2em;
+        font-weight: 500;
+        font-size: 12px;
+        font-family: inherit;
     }
+}
+
+.selectionBox {
+    border: 3px dashed rgb(255, 149, 28);
 }
 
 
