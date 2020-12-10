@@ -6,7 +6,7 @@ $borange: rgb(255, 187, 41);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
   font-weight: bold;
 }
 
@@ -109,7 +109,7 @@ button:hover {
 .gameImage {
   display: inline-block;
   position: relative;
-  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.322);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.25);
   margin: 0 1em;
   cursor: pointer;
 
