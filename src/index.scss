@@ -58,6 +58,11 @@ h2 {
   font-size: 1.4em;
 }
 
+strong {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}
+
 button,
 input {
   font-family: "Courier New", Courier, monospace;
@@ -260,6 +265,8 @@ th {
 
     p {
       display: flex;
+      align-items: center;
+      margin: 1em 0;
     }
   }
 }
