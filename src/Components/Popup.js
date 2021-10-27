@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive }) => {
   return (
@@ -9,7 +9,7 @@ const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive }) => {
           top: y - 60,
           left: x - 30,
           width: 60,
-          position: "absolute",
+          position: 'absolute',
         }}
       >
         <select
@@ -21,7 +21,7 @@ const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive }) => {
           <option
             value="select"
             key="select"
-            style={{ "font-style": "italic", "font-weight": "500" }}
+            style={{ 'font-style': 'italic', 'font-weight': '500' }}
           >
             select
           </option>
@@ -39,7 +39,7 @@ const Popup = ({ x, y, charsRemaining, checkSelection, setPopupActive }) => {
           left: x - 30,
           height: 120,
           width: 60,
-          position: "absolute",
+          position: 'absolute',
         }}
       ></div>
     </div>

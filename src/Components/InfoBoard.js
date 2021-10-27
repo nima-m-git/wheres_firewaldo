@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Highscores } from "./Highscores";
-import { formatTime } from "../format-time";
+import { Highscores } from './Highscores';
+import { formatTime } from '../format-time';
 
 export const InfoBoard = ({ chars, timeElapsed, imgName, won }) => {
   const formattedChars = (chars) =>
-    chars.map((char, index) => char + (index < chars.length - 1 ? ", " : "."));
+    chars.map((char, index) => char + (index < chars.length - 1 ? ', ' : '.'));
 
   return (
     <div className="infoBoard">

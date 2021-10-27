@@ -28,7 +28,7 @@ body {
     no-repeat;
   background-size: cover;
   margin: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -65,7 +65,7 @@ strong {
 
 button,
 input {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
 }
 
@@ -203,7 +203,7 @@ th {
   transform: translate(-50%, -50%);
   z-index: 1;
 
-  input[type="text"] {
+  input[type='text'] {
     background: rgba(255, 255, 255, 0);
     border: 2px solid $borange;
     border-radius: 5px;
@@ -215,7 +215,7 @@ th {
     margin: 0.5em;
   }
 
-  input[type="submit"] {
+  input[type='submit'] {
     background: rgba(235, 214, 214, 0.192);
     border: 2px solid $borange;
     color: $borange;
@@ -225,7 +225,7 @@ th {
     font-size: 14px;
   }
 
-  input[type="submit"]:hover {
+  input[type='submit']:hover {
     cursor: pointer;
     background: rgba(235, 214, 214, 0.4);
   }

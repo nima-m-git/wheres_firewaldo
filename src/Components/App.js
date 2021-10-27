@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Game } from "./Game";
-import { Choice } from "./Choice";
+import { Game } from './Game';
+import { Choice } from './Choice';
 
 export default function App() {
   const [choice, setChoice] = useState(null);
