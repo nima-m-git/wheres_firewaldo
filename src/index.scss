@@ -11,10 +11,12 @@ $borange: rgb(255, 187, 41);
 }
 
 html,
-body {
-  min-height: 100%;
+body,
+#root {
+  min-height: fit-content;
+  height: 100%;
   min-width: 100%;
-  overflow-x: scroll;
+  overflow: auto;
 }
 
 body {
